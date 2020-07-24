@@ -106,7 +106,7 @@ export async function getQuotation1(userEmail: string, getUserDetails: any): Pro
 }
 ```
 
-Now let's try to caught mistake of not handling error case at a compile time. 
+Now let's try to catch the mistake of not handling errors during compile time.
 Many language have introduced `Maybe` or `Optional`, `Either` or `Result` Type. During computation function call may return success value or failure value. 
 `Maybe` or `Optional` type indicates that value may not be present, but it does not indicate why failure is occurred. Using `Either` or `Result` type 
 you can encode both values. `Either` or `Result` can hold either `Right` or `Left` value. `Right` encodes the success case & `Left` encodes the failure with error message. In our example, we can represent the failure cases `User not found` or `Service not available` using `Left` & `Right` will represent the user details
