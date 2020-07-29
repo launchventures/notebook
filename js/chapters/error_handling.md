@@ -43,7 +43,7 @@ This coding pattern explicitly tests for pre-conditions before making calls or l
 
 ```javascript
 import * as _ from 'ramda';
-export function getGreeting1(user) {
+export function getGreeting(user) {
     // LBYL Style
 
     const name = user.name
@@ -91,7 +91,7 @@ Though we did not handle the promise rejection, this code will get compiled succ
 We can handle the promise rejection by wrapping it in try catch block.
 
 ```typescript
-export async function getQuotation1(userEmail: string, getUserDetails: any): Promise<number> {
+export async function getQuotation(userEmail: string, getUserDetails: any): Promise<number> {
     try {
         const userDetails = await getUserDetails(userEmail);
         if (userDetails.age < 30) {
