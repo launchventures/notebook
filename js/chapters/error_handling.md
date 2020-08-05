@@ -1,30 +1,31 @@
-# Error handling 
+# Error handling
 
-During development, developer always tries to think about what can go wrong. Developer tries to handle these errors / exceptions in the code. Usually this includes: 
+While writing software, developers try to think about what can go wrong and put in place measures to handle errors / exceptions. Usually these include:
 
 - Safely access data in data structure
-    - Checking the length of list 
-    - Check Key exists in the dictionary 
-- Database constraint errors 
-    - Duplicate Email address or username
-    - Primary key violation
-- Domain specific errors 
-    - Email is not verified 
-    - Shopping cart can have maximum 10 items
-- Infrastructure errors 
-    - File does not exist 
-    - Network time out
-    - Any error occurring outside system boundary
+  - Checking the length of list
+  - Check Key exists in the dictionary
+- Database constraint errors
+  - Duplicate Email address or username
+  - Primary key violation
+- Domain specific errors
+  - Email is not verified
+  - Shopping cart can have maximum 10 items
+- Infrastructure errors
+  - File does not exist
+  - Network time out
+  - Any error occurring outside system boundary
 
 ## EAFP vs LBYL
 
-Python community has discussed two patterns for error handling & it applies to other programming languages also. 
+Python community has discussed two patterns for error handling & it applies to other programming languages also.
 
 ### EAFP (Easier to ask for forgiveness than permission)  
 
-In this pattern, we consider our assumptions about data/object structure are correct & catches an exception if the assumption proves false.
+In this pattern, we consider that our assumptions about the structure of our data or object are correct & catch it with an exception if proven false.
 
-For example, we assume user object has the name property. If user object not have name property then calling split function on undefined will raise an exception.
+For example, we assume user object has the 'name' property and if it actually doesn't, then calling split function below on undefined will raise an exception.
+
 ```javascript
 export function getGreeting(user) {
     // EAFP Style
@@ -39,7 +40,6 @@ export function getGreeting(user) {
 ### LBYL (Look before you leap)
 
 This coding pattern explicitly tests for pre-conditions before making calls or lookups. So before using name property we will check whether name is null or not.
-
 
 ```javascript
 import * as _ from 'ramda';
@@ -56,19 +56,19 @@ export function getGreeting(user) {
 
     // const firstName = user.name?.split(' ')[0]
     // return 'Hi ' + (firstName || '')
-    
+
 }
 ```
 
-### Notes 
+### Notes
 
-- We should do the parsing or validation of the data at the system edges using libraries like [Joi](https://hapi.dev/module/joi/),[ajv](https://github.com/ajv-validator/ajv) or [io-ts](https://github.com/gcanti/io-ts).
-- For safely accessing data, prefer using LBYL style. We can use the default values if the value is not present. In this case [pathOr](https://ramdajs.com/docs/#pathOr), [propOr](https://ramdajs.com/docs/#propOr) functions or [Short-circuit evaluation](https://en.wikipedia.org/wiki/Short-circuit_evaluation) helps us to write the expression in single line and handle the null values very well.
-- If libraries you use throws the exceptions then prefer the EAFP style. DB exceptions, Infrastructure error can be handle using this categories. 
+- We should parse or validate data at the system edges using libraries like [Joi](https://hapi.dev/module/joi/),[ajv](https://github.com/ajv-validator/ajv) or [io-ts](https://github.com/gcanti/io-ts).
+- For safely accessing data, prefer using LBYL style. We can use default values if the value is not present. In this case [pathOr](https://ramdajs.com/docs/#pathOr), [propOr](https://ramdajs.com/docs/#propOr) functions or [Short-circuit evaluation](https://en.wikipedia.org/wiki/Short-circuit_evaluation) help us write the expression in a single line and they handle the null values very well.
+- If the libraries you are using throw exceptions then prefer the EAFP style. DB exceptions, Infrastructure error can be handle using this style.
 
-Let's look better ways to handle domain specific errors.
+Let's look at better ways to handle domain specific errors.
 
-## Error as values 
+## Error as values
 
 We should try converting run time errors to compile time errors as much as possible. When you make error as first class citizens in your code it enforces developer to handle the exceptions, so that code will not get compiled if exception are not handled. 
 
